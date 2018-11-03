@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
-import 'Title' from './component/Title'
-import 'Weather' from './component/Weather'
+import Title from './component/Title'
+import Weather from './component/Weather'
 
 class App extends Component {
   render() {
