@@ -18,8 +18,8 @@ class App extends Component {
     error: undefined
   }
 
-  componentDidMount(){
-    if (navigator.geolocation){
+  componentDidMount() {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           api += `lat=${position.coords.latitude}&lon=${position.coords.longitude}`
@@ -41,7 +41,7 @@ class App extends Component {
       description: data.weater[0].description,
       icon: data.weather[0].icon,
       error: ''
-     })
+    })
   }
 
 
@@ -49,14 +49,14 @@ class App extends Component {
     return (
       <div className="App">
         <Title />
-        <Weather 
-        temperature = {this.state.temperature}
-        city = {this.state.city}
-        country = {this.state.country}
-        humidity = {this.state.humidity}
-        description = {this.props.description}
-        icon = {this.props.icon}
-        error = {this.props.error}
+        <Weather
+          temperature={this.state.temperature}
+          city={this.state.city}
+          country={this.state.country}
+          humidity={this.state.humidity}
+          description={this.props.description}
+          icon={this.props.icon}
+          error={this.props.error}
         />
       </div>
     );
