@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import './App.css'
 import Title from './components/Title'
 import Weather from './components/Weather'
-import Location from './components/Location'
-import Form from './components/Form'
+
 
 const API_KEY = "a1a849c982e707bbf6fa3890ce6a7add"
+let api = "https://api.openweathermap.org/data/2.5/weather?"
 
 class App extends Component {
   state = {
@@ -15,46 +15,40 @@ class App extends Component {
     humidity: undefined,
     description: undefined,
     icon: undefined,
-    error: undefined,
-    lat: '',
-    long: ''
+    error: undefined
   }
 
-  findCoordinates = () => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({
-          lat: position.coords.latitude,
-          long: position.coords.longitude
-        })
-      }
-    )
-  }
-
-  getWeather = async (e) => {
-    e.preventDefault()
-    if (lat && long){
-      const api_call = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`)
-      const data = await api_call.json()
-      console.log(data)
-      this.setState({
-        temperature: data.main.temp,
-        city: data.name,
-        country: data.sys.country,
-        humidity: data.main.humidity,
-        description: data.weater[0].description,
-        icon: data.weather[0].icon,
-        error: ''
-      })
+  componentDidMount(){
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          api += `lat=${position.coords.latitude}&lon=${position.coords.longitude}`
+          this.getWeather(api)
+        }
+      )
     }
   }
+
+  getWeather = async () => {
+    const api_call = await fetch(`${api}&appid=${API_KEY}`)
+    const data = await api_call.json()
+    console.log(data)
+    this.setState({
+      temperature: data.main.temp,
+      city: data.name,
+      country: data.sys.country,
+      humidity: data.main.humidity,
+      description: data.weater[0].description,
+      icon: data.weather[0].icon,
+      error: ''
+     })
+  }
+
 
   render() {
     return (
       <div className="App">
         <Title />
-        <Location findCoordinates = {this.findCoordinates} />
-        <Form getWeather = {this.getWeather} />
         <Weather 
         temperature = {this.state.temperature}
         city = {this.state.city}
@@ -70,3 +64,9 @@ class App extends Component {
 }
 
 export default App;
+
+
+/* Tutorials from here:
+https://stackoverflow.com/questions/51952341/how-do-i-get-users-location-via-navigator-geolocation-before-my-fetch-executes
+https://www.youtube.com/watch?v=204C9yNeOYI
+*/

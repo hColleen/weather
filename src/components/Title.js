@@ -4,7 +4,7 @@ export default class Title extends Component{
     render(){
         return(
         <div>
-            Hello
+            Local Weather
         </div>
         )
     }
