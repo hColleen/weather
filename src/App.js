@@ -39,7 +39,7 @@ class App extends Component {
       country: data.sys.country,
       humidity: data.main.humidity,
       description: data.weather[0].description,
-      icon: data.weather[0].icon,
+      icon: data.weather[0].id,
       error: ''
     })
   }
@@ -54,9 +54,9 @@ class App extends Component {
           city={this.state.city}
           country={this.state.country}
           humidity={this.state.humidity}
-          description={this.props.description}
-          icon={this.props.icon}
-          error={this.props.error}
+          description={this.state.description}
+          icon={this.state.icon}
+          error={this.state.error}
         />
       </div>
     );

@@ -23,9 +23,12 @@ const Weather = props => (
             </p>
         }
         {
+            props.icon && <p className="weather__key"><i className = {`wi wi-owm-${props.icon}`}></i></p>
+        }
+        {
             props.error && <p className="weather__error">{props.error}</p>
         }
     </div>
-);
+)
 
 export default Weather;
