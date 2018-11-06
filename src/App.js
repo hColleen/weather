@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   getWeather = async () => {
-    const api_call = await fetch(`${api}&appid=${API_KEY}`)
+    const api_call = await fetch(`${api}&appid=${API_KEY}&units=metric`)
     const data = await api_call.json()
     console.log(data)
     this.setState({
