@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Title from './components/Title'
 import Weather from './components/Weather'
+import FiveDay from './components/Forecast';
 
 
 const API_KEY = "a1a849c982e707bbf6fa3890ce6a7add"
@@ -64,6 +65,7 @@ class App extends Component {
                   icon={this.state.icon}
                   error={this.state.error}
                 />
+                <FiveDay />
               </div>
             </div>
           </div>
