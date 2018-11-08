@@ -31,6 +31,6 @@ To use and develope this project on your own system:
 3. Browser support for geolocation
 
 ## TODO
-[] 5 day forecast
-[] Option for user input location in addition to geolocation
-[] Possible: change to Dark Sky API or Weather Underground for more information than in Open Weather Map
+[ ] 5 day forecast
+[ ] Option for user input location in addition to geolocation
+[ ] Possible: change to Dark Sky API or Weather Underground for more information than in Open Weather Map
