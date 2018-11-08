@@ -34,3 +34,4 @@ To use and develope this project on your own system:
 - [ ] 5 day forecast
 - [ ] Option for user input location in addition to geolocation
 - [ ] Possible: change to Dark Sky API or Weather Underground for more information than in Open Weather Map
+- [ ] Make responsive
