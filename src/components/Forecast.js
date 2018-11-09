@@ -1,10 +1,27 @@
 import React, { Component } from 'react'
+import {Line} from 'react-chartjs-2';
 
 let forecastApi = "https://api.openweathermap.org/data/2.5/forecast?"
 const API_KEY = "a1a849c982e707bbf6fa3890ce6a7add"
 
 export default class FiveDay extends Component{
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      graphData: {
+        labels: [],
+        datasets:[
+          {
+          label: '',
+          data: [],
+          backgroundColor:['#001233']
+          }
+        ]
+      }
+    }
+  }
+  
   componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -19,13 +36,37 @@ export default class FiveDay extends Component{
   getForecast = async () => {
     const api_call = await fetch(`${forecastApi}&appid=${API_KEY}&units=metric`)
     const data = await api_call.json()
-    console.log(data)
+    let temp = [], icon = []
+    for (let i = 0; i < data.list.length; i++){
+      temp.push(data.list[i].main.temp)
+      icon.push(data.list[i].weather[0].id)
+    }this.setState.graphData.datasets.data({
+      temp: temp})
+    }
+
+  static defaultProps = {
+    displayTitle: false,
+    displayLegend: false,
+    displayLabel: false
   }
+  
   
   render() {
     return (
      <div>
-      Five Day Forecast
+      <h3 className = "forecast_title">Five Day Forecast</h3>
+      <Line 
+        data = {this.state.graphData}
+        options = {{
+          title: {
+            display: this.props.displayTitle
+          },
+          legend:{
+            display: this.props.displayLegend
+          },
+          maintainAspectRatio: false
+        }}
+      />
      </div> 
     )
   }
