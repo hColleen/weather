@@ -9,18 +9,15 @@ export default class FiveDay extends Component{
   constructor (props) {
     super(props)
     this.state = {
-      graphData: {
-        labels: [],
-        datasets:[
-          {
-          label: '',
-          data: [],
-          backgroundColor:['#001233']
-          }
-        ]
-      }
+      graphData: {}
     }
   }
+  static defaultProps = {
+    displayTitle: false,
+    displayLegend: false,
+    displayLabel: false
+  }
+  
   
   componentDidMount() {
     if (navigator.geolocation) {
@@ -40,20 +37,24 @@ export default class FiveDay extends Component{
     for (let i = 0; i < data.list.length; i++){
       temp.push(data.list[i].main.temp)
       icon.push(data.list[i].weather[0].id)
-    }this.setState.graphData.datasets.data({
-      temp: temp})
     }
-
-  static defaultProps = {
-    displayTitle: false,
-    displayLegend: false,
-    displayLabel: false
+    this.setState({
+      graphData:{
+    labels: [],
+    datasets:[
+      {
+      label: '',
+      data: temp,
+      backgroundColor:['#001233']
+      }
+    ]
   }
-  
+  })
+  }
   
   render() {
     return (
-     <div>
+     <div className = "forecast_graph">
       <h3 className = "forecast_title">Five Day Forecast</h3>
       <Line 
         data = {this.state.graphData}
@@ -63,8 +64,7 @@ export default class FiveDay extends Component{
           },
           legend:{
             display: this.props.displayLegend
-          },
-          maintainAspectRatio: false
+          }
         }}
       />
      </div> 
