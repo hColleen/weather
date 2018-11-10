@@ -33,14 +33,21 @@ export default class FiveDay extends Component{
   getForecast = async () => {
     const api_call = await fetch(`${forecastApi}&appid=${API_KEY}&units=metric`)
     const data = await api_call.json()
-    let temp = [], icon = []
+    let temp = [], icon = [], timestamp =[], dateArray = []
     for (let i = 0; i < data.list.length; i++){
       temp.push(data.list[i].main.temp)
       icon.push(data.list[i].weather[0].id)
+      timestamp.push(data.list[i].dt)
     }
+    for (let i = 0; i < timestamp.length; i ++){
+      let date = new Date(timestamp[i] * 1000)
+      let options = { weekday: 'short', month: 'short'}
+      dateArray.push(date.toLocaleString(options))
+    }
+    console.log(dateArray)
     this.setState({
       graphData:{
-    labels: [],
+    labels: dateArray,
     datasets:[
       {
       label: '',
